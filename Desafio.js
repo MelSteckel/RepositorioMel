@@ -1,17 +1,14 @@
-'use strict'
+// Desafio IBM - Digital - Node.js
 
+'use strict'
 const Attempts = Number.MAX_SAFE_INTEGER;
 
-/**
- * Valida se os argumentos passados estao corretos e retorna verdadeiro ou falso
- * @param {*} arr 
- */
-const validateArgs = (arr) => {
-    if (arr.lengh < 3) {
+const validateInfo = (x) => {
+    if (x.lengh < 3) {
         return true;
     }
     for (let i = 0; i < 3; i++) {
-        if (isNaN(arr[i])) {
+        if (isNaN(x[i])) {
             return true;
         }
     }
@@ -19,92 +16,84 @@ const validateArgs = (arr) => {
 }
 
 
-if (validateArgs(process.argv.slice(2))) {
-    console.info('Favor, Inserir os Parâmetros corretamente')
+if (validateInfo(process.argv.slice(2))) {
+    console.info('Favor, informe os Parâmetros corretamente e tente novamente!')
+	console.info('Inserir: [Numero inteiro ampulheta 1] [numero inteiro ampulheta 2] [numero inteiro Tempo cozimento]')
     process.exit(1);
 }
-// atribuinfo os parametros as variaveis globais
-const amp1 = parseInt(process.argv[2], 10),
-      amp2 = parseInt(process.argv[3], 10),
-      cook = parseInt(process.argv[4], 10);
-/**
- * Calcula o maximo divisor comum entre dois numeros
- * @param {*} num1 
- * @param {*} num2 
- */
-const mdc = (num1, num2) => {
+
+const glass1 = parseInt(process.argv[2], 10),
+      glass2 = parseInt(process.argv[3], 10),
+      cooking = parseInt(process.argv[4], 10);
+	  
+
+const var1 = (int1, int2) => {
     let x;
     do {
-        x = num1 % num2;
-        num1 = num2;
-        num2 = x;
+        x = int1 % int2;
+        int1 = int2;
+        int2 = x;
 
     } while (x != 0);
 
-    return num1;
+    return int1;
 }
 
-/**
- * Verifica se e possivel resolver o problema com as ampulhetas passadas e o tempo de cozimento
- * @param {*} amp1 
- * @param {*} amp2 
- * @param {*} miojo 
- */
-const validateViability = (amp1, amp2, miojo) => {
-    // os tempos das ampulhetas deve ser maior
-    if (amp1 <= miojo || amp2 <= miojo) {
-        console.info(`O tempo das ampulhetas deve ser maior que o de cozimento!`);
+
+const validateViability = (glass1, glass2, miojo) => {
+ 
+    if (glass1 <= miojo || glass2 <= miojo) {
+        console.info(`Inserir tempo das ampulhetas maior que o de cozimento do miojo.`);
+		console.info(`Tente novamente!`);
         process.exit(1)
     }
-    // o tempo de cozimento deve ter um divisao exata pelo MDC
-    if ((miojo % mdc(amp1, amp2))) {
-        console.info(`Não é possivel obter o tempo de cozimento exato com as ampulhetas informadas!`);
+   
+    if ((miojo % var1(glass1, glass2))) {
+        console.info(`Com o tempo das ampulhetas informado não foi possível calcular o tempo exato de cozimento.`);
+		console.info(`Tente novamente!`);
         process.exit(1)
     }
 }
 
 
-validateViability(amp1, amp2, cook);
+validateViability(glass1, glass2, cooking);
 
-let tempAmp1 = amp1,
-    tempAmp2 = amp2,
-    checkTime = 0,
+let temp1 = glass1,
+    temp2 = glass2,
+    timeCheck = 0,
     count = 0,
-    totalTime = 0;
+    timeTotal = 0;
 
-/**
- * Itera com as ampulhetas afim de encontrar a quantidade de iterações e o tempo gasto para o problema
- */
-while (checkTime < Attempts) {
-    // recebe o tempo da menor subAmpulheta
-    checkTime = tempAmp1 > tempAmp2 ? tempAmp2 : tempAmp1;
-    if (checkTime == cook) {
-        totalTime += checkTime;
+
+while (timeCheck < Attempts) {
+    timeCheck = temp1 > temp2 ? temp2 : temp1;
+    if (timeCheck == cooking) {
+        timeTotal += timeCheck;
         break;
     } else {
-        // resolve as diferenças e acrescenta ao tempo total
-        if (tempAmp1 > tempAmp2) {
-            tempAmp1 = tempAmp1 - tempAmp2
-            totalTime += tempAmp2;
-            tempAmp2 = amp2;
+        if (temp1 > temp2) {
+            temp1 = temp1 - temp2
+            timeTotal += temp2;
+            temp2 = glass2;
         } else {
-            tempAmp2 = tempAmp2 - tempAmp1
-            totalTime += tempAmp1;
-            tempAmp1 = amp1;
+            temp2 = temp2 - temp1
+            timeTotal += temp1;
+            temp1 = glass1;
         }
     }
     count++;
 }
-if(checkTime >= Attempts){
+if(timeCheck >= Attempts){
     console.info('Não foi possivel resolver com o numero maximo de tentativas configurado!')
     process.exit(1)
 }
 
 // Relatorio final
 
-console.info('\nRelatório Final\n');
-console.info(`Ampulheta 1       : ${amp1} minutos`);
-console.info(`Ampulheta 2       : ${amp2} minutos`);
-console.info(`Tempo de Cozimento: ${checkTime} minutos`);
-console.info(`Tempo Tatal       : ${totalTime} minutos`);
-console.info(`Número Interações : ${count}\n`);
+console.info('\nRelatório:\n');
+
+console.info(`Tempo da Ampulheta 1  : ${glass1} minutos`);
+console.info(`Tempo da Ampulheta 2  : ${glass2} minutos`);
+console.info(`Tempo Cozimento Miojo : ${timeCheck} minutos`);
+console.info(`Tempo preparo Total   : ${timeTotal} minutos`);
+console.info(`Número Interações     : ${count}\n`);
