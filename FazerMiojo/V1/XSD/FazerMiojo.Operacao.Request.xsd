@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org"
+            targetNamespace="http://www.ibm.com/FazerMiojoRequest/XSD" elementFormDefault="qualified"
+            xmlns:tns="http://www.ibm.com/FazerMiojoRequest/XSD">
+  <xsd:element name="Desafio">
+    <xsd:annotation>
+      <xsd:documentation>Desafio IBM - Fazer Miojo</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <!-- Request definitions -->
+  <xsd:element name="Request" type="tns:RequestType"/>
+  <xsd:complexType name="RequestType">
+    <xsd:sequence>
+      <xsd:element name="YourName" type="tns:StringType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="HourGlass1" type="tns:IntType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="HourGlass2" type="tns:IntType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="Cooking" type="tns:IntType" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType> 
+  <!-- Types definitions  -->
+  <xsd:simpleType name="IntType">
+    <xsd:restriction base="xsd:integer">
+      <xsd:pattern value="[0-9]"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="StringType">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([A-Z][a-z]){20}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
+
+

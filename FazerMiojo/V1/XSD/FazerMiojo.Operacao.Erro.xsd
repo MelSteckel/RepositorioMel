@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org"
+            targetNamespace="http://www.ibm.com/FazerMiojoResponse/XSD" elementFormDefault="qualified"
+            xmlns:tns="http://www.ibm.com/FazerMiojoResponse/XSD">
+  <xsd:element name="Desafio">
+    <xsd:annotation>
+      <xsd:documentation>Desafio IBM - Fazer Miojo - Response Error - Mensagem de Erro</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <!-- Response definitions -->
+  <xsd:element name="ResponseERROR" type="tns:ResponseErrorType"/>
+  <xsd:complexType name="ResponseErrorType">
+    <xsd:sequence>
+      <xsd:element name="RelatorioErro" type="tns:RelatorioErroType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RelatorioErroType">
+    <xsd:sequence>
+      <xsd:element name="MensagemErro" type="xsd:string" minOccurs="1" maxOccurs="1"/>     
+    </xsd:sequence>
+  </xsd:complexType>  
+</xsd:schema>
+
+
